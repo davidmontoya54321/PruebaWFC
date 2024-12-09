@@ -10,3 +10,10 @@ main {
   align-items: center;
   justify-content: center;
 }
+.ui {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+}
