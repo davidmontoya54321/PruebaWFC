@@ -1,5 +1,3 @@
-// CLASE 6.1
-
 const celdas = [];
 
 let RETICULAX = document.getElementById("cellSize").value;
@@ -24,11 +22,10 @@ function setup() {
 
   ancho = width / RETICULAX;
   alto = ancho;
-
   RETICULAY = Math.floor(height / ancho);
 
-  for (let i = 0; i < azulejos.length; ++i) {
-    // print(opcionesI);
+  let opcionesI = [];
+  for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
   }
 
@@ -50,10 +47,13 @@ function setup() {
 }
 
 function draw() {
+  const celdasDisponibles = celdas.filter((celda) => {
+    return celda.colapsada == false;
+  });
   function filtrarCeldas(celda) {
     return celda.colapsada == false;
   }
-  const celdasDisponibles = celdas.filter(filtrarCeldas);
+  //const celdasDisponibles = celdas.filter(filtrarCeldas);
 
   if (celdasDisponibles.length > 0) {
     celdasDisponibles.sort((a, b) => {
@@ -69,7 +69,7 @@ function draw() {
 
     celdaSeleccionanda.opciones = [opcionSeleccionada];
 
-    print(celdaSeleccionanda);
+    //print(celdaSeleccionanda);
 
     //Forloop para monitorear las posiciones en el escenario de nuestra retícula
 
@@ -83,6 +83,7 @@ function draw() {
           //print(reglaActuales);
 
           image(azulejos[indiceAzulejo], x * ancho, y * alto, ancho, alto);
+
           //MONITOREAR UP
           if (y > 0) {
             const indiceUP = x + (y - 1) * RETICULAX;
@@ -119,6 +120,18 @@ function draw() {
       }
     }
   } else {
+    /*let opcionesI = [];
+    for (let i = 0; i < azulejos.length; ++i) {
+      // print(opcionesI);
+      opcionesI.push(i);
+    }
+
+    for (let i = 0; i < RETICULAX * RETICULAY; i++) {
+      celdas[i] = {
+        colapsada: false,
+        opciones: opcionesI,
+      };
+    }*/
   }
   //noLoop();
 }
@@ -129,10 +142,13 @@ function cambiarEntropia(_celda, _regla, _opuesto) {
     if (_regla == reglas[_celda.opciones[i]][_opuesto]) {
       const celdaCompartible = _celda.opciones[i];
       nuevasOpciones.push(celdaCompartible);
-      print(nuevasOpciones);
+      //print(nuevasOpciones);
     }
   }
-  print(nuevasOpciones);
+
+  _celda.opciones = nuevasOpciones;
+
+  //print(nuevasOpciones);
 }
 
 function resetAll() {
@@ -150,7 +166,7 @@ function resetAll() {
     opcionesI.push(i);
   }
 
-  for (let i = 0; i < RETICULAX * RETICULAX; i++) {
+  for (let i = 0; i < RETICULAX * RETICULAY; i++) {
     celdas[i] = {
       colapsada: false,
       opciones: opcionesI,
