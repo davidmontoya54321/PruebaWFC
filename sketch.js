@@ -1,3 +1,5 @@
+//******PARTE 2 */
+
 const celdas = [];
 
 let RETICULAX = document.getElementById("cellSize").value;
@@ -13,7 +15,7 @@ let opcionesI = [];
 
 function preload() {
   for (let i = 0; i < NA; i++) {
-    azulejos[i] = loadImage("sprites/tiles" + i + ".png");
+    azulejos[i] = loadImage("sprites2/tiles" + i + ".png");
   }
 }
 
