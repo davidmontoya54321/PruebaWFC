@@ -9,7 +9,7 @@ let alto;
 const startButton = document.getElementById("start");
 
 const azulejos = [];
-const NA = 11; //numero de azulejos
+const NA = reglas.length; //numero de azulejos
 
 let opcionesI = [];
 
@@ -49,7 +49,11 @@ function setup() {
 }
 
 function draw() {
-  const celdasDisponibles = celdas.filter((celda) => {
+  const celdasConOPciones = celdas.filter((celda) => {
+    return celda.opciones.length > 0;
+  });
+
+  const celdasDisponibles = celdasConOPciones.filter((celda) => {
     return celda.colapsada == false;
   });
   function filtrarCeldas(celda) {
@@ -79,6 +83,12 @@ function draw() {
       for (let y = 0; y < RETICULAY; y++) {
         const celdaindex = x + y * RETICULAX;
         const celdaActual = celdas[celdaindex];
+
+        if (celdaActual.opciones.length < 1) {
+          fill(255, 100, 100);
+          rect(x * ancho, y * alto, ancho, alto);
+        }
+
         if (celdaActual.colapsada) {
           const indiceAzulejo = celdaActual.opciones[0];
           const reglaActuales = reglas[indiceAzulejo];
